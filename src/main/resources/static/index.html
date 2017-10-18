@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>ICD10疾病标注</title>
+    <link rel="stylesheet" href="plugs/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="plugs/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="spinner" id="wait" style="margin-bottom: 30%;margin-top: 20%">
+    <h1>数据加载中(服务器带宽1M,加载较慢)</h1>
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</div>
+<div id="main" style="display: none">
+    <div class="text-center">
+        <h1 style="font-size: 30px;margin-top: 10px;margin-bottom: 10px">ICD10 疾病标注</h1>
+    </div>
+    <div ng-app="myapp" ng-controller="menu">
+        <table id="table" lay-filter="test"></table>
+        <script type="text/html" id="barDemo">
+            <button class="layui-btn layui-btn-mini" lay-event="tag">标注数据</button>
+            <button class="layui-btn layui-btn-mini" lay-event="del">清除</button>
+        </script>
+        <!-- 模态框（Modal）用来显示数据, 是否提交成功或者能否提交 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 30%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel" style="color:#c12e34; font-weight:blod; ">
+
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="myModalContent">
+                        <div>
+                            <div style="margin-bottom: 15px">
+                                <span><strong><b>当前选择是：</b></strong></span><span ng-bind="dangqianxuanze"></span>
+                            </div>
+                            <div id="chapter">
+                                <ul class="">
+                                    <li class=" list-group-item" ng-repeat="x in chapter " info="">
+                                        <a class=" list-group-item" ng-click="isCollapsed = !isCollapsed;save1(x)"
+                                           ng-bind="'1.'+x.name"></a>
+                                        <ul uib-collapse="isCollapsed" class="level2" ng-repeat="y in x.list">
+                                            <a class="list-group-item "
+                                               ng-click="isCollapsedchildren = !isCollapsedchildren;save2(y)"
+                                               style="background-color: #D3D3D3;margin:2px 0px 0px 8px;"
+                                               ng-bind="'  2.'+y.name"></a>
+                                            <ul uib-collapse="isCollapsedchildren" class="level3"
+                                                ng-repeat="z in y.sanweima ">
+
+                                                <a class="list-group-item "
+                                                   style="background-color: #d9ead3;margin:2px 0px 0px 18px;"
+                                                   ng-click="isCollapsedSun = !isCollapsedSun;save3(z)"
+                                                   ng-bind="'  3.'+z.name"></a>
+                                                <ul uib-collapse="isCollapsedSun"
+                                                    class="level4"
+                                                    ng-repeat="si in z.siweidaima ">
+                                                    <a class="list-group-item " style="background-color:
+                                                #FFEC8B;margin:2px 0px 0px 30px;"
+                                                       ng-click="save4(si)" ng-bind="' 4.'+si.name"></a>
+                                                </ul>
+
+                                            </ul>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="saveinfo()">确认选择
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+
+
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="plugs/jquery/jquery-2.2.3.min.js"></script>
+<script src="plugs/bootstrap/js/bootstrap.js"></script>
+<script src="plugs/slimScroll/jquery.slimscroll.js"></script>
+<script src="plugs/angular/angular.js"></script>
+<script src="plugs/angular/angular-animate.js"></script>
+<script src="plugs/angular/angular-sanitize.js"></script>
+<script src="plugs/angular/ui-bootstrap.js"></script>
+<script src="plugs/angular/ui-bootstrap-tpls.js"></script>
+
+<script src="plugs/layui/layui.all.js"></script>
+
+<script src="js/index.js"></script>
+</body>
+</html>
