@@ -10,6 +10,12 @@ app.controller('menu', function ($scope, $http) {
     var dangqianhangdata;
 
     $scope.isCollapsed = true;
+    $scope.test = {
+        isCollapsed: true
+    };
+    $scope.testToggle = function () {
+        $scope.test.isCollapsed = !$scope.test.isCollapsed;
+    }
     $scope.isCollapsedchildren = true;
     $scope.isCollapsedSun = true;
     $scope.cache1
@@ -138,11 +144,11 @@ app.controller('menu', function ($scope, $http) {
             elem: '#table' //指定原始表格元素选择器（推荐id选择器）
             , cols: [[ //标题栏
                 {field: 'id', title: 'id', width: 80}
-                , {field: 'taggingDiseaseName', title: '描述', width: 250}
-                , {field: 'categoryName', title: '大类', width: 250}
-                , {field: 'firstName', title: '第一级', width: 250}
-                , {field: 'secondName', title: '第二级', width: 250}
-                , {field: 'thirdName', title: '第三级', width: 250}
+                , {field: 'taggingDiseaseName', title: '描述', width: 230}
+                , {field: 'categoryName', title: '第一级', width: 230}
+                , {field: 'firstName', title: '第二级', width: 230}
+                , {field: 'secondName', title: '第三级', width: 230}
+                , {field: 'thirdName', title: '第四级', width: 230}
                 , {fixed: 'right', width: 180, align: 'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
             ]]
             , url: '/tagging/getTagging/'
@@ -161,7 +167,12 @@ app.controller('menu', function ($scope, $http) {
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if (layEvent === 'tag') {
                 dangqianhangdata = data
+                // $scope.isCollapsed = true;
+                // $scope.isCollapsedchildren = true;
+                // $scope.isCollapsedSun = true;
+
                 $('#myModal').modal('toggle');
+
             } else if (layEvent === 'del') {
                 dangqianhangdata = data
                 $.ajax({

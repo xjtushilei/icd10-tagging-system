@@ -52387,5 +52387,31 @@
         ]
       }
     ]
+  },
+  {
+    "id": "23",
+    "name": "无法归类",
+    "bianma": "无法归类",
+    "list": [
+      {
+        "zhang": "23",
+        "bianma": "症状",
+        "name": "症状",
+        "parent_zhang_name": "无法归类",
+        "parent_zhang_bianma": "无法归类",
+        "sanweima": [
+        ]
+      },
+      {
+        "zhang": "23",
+        "bianma": "其他",
+        "name": "其他",
+        "parent_zhang_name": "无法归类",
+        "parent_zhang_bianma": "无法归类",
+        "sanweima": [
+
+        ]
+      }
+    ]
   }
 ]

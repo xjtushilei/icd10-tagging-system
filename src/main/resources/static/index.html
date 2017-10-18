@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>ICD10疾病标注</title>
     <link rel="stylesheet" href="plugs/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="css/index.css">
@@ -57,14 +56,14 @@
                                                 ng-repeat="z in y.sanweima ">
 
                                                 <a class="list-group-item "
-                                                   style="background-color: #d9ead3;margin:2px 0px 0px 18px;"
+                                                   style="background-color: #d9ead3;margin:2px 0px 0px 16px;"
                                                    ng-click="isCollapsedSun = !isCollapsedSun;save3(z)"
                                                    ng-bind="'  3.'+z.name"></a>
                                                 <ul uib-collapse="isCollapsedSun"
                                                     class="level4"
                                                     ng-repeat="si in z.siweidaima ">
                                                     <a class="list-group-item " style="background-color:
-                                                #FFEC8B;margin:2px 0px 0px 30px;"
+                                                #FFEC8B;margin:2px 0px 0px 24px;"
                                                        ng-click="save4(si)" ng-bind="' 4.'+si.name"></a>
                                                 </ul>
 
