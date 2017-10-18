@@ -24,10 +24,10 @@
             <button class="layui-btn layui-btn-mini" lay-event="tag">标注数据</button>
             <button class="layui-btn layui-btn-mini" lay-event="del">清除</button>
         </script>
-        <!-- 模态框（Modal）用来显示数据, 是否提交成功或者能否提交 -->
+        <!-- 模态框（Modal）用来显示数据 -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog" style="width: 30%">
+            <div class="modal-dialog" style="width: 50%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -38,41 +38,54 @@
                         </h4>
                     </div>
                     <div class="modal-body" id="myModalContent">
-                        <div>
-                            <div style="margin-bottom: 15px">
-                                <span><strong><b>当前选择是：</b></strong></span><span ng-bind="dangqianxuanze"></span>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="di1id" class="col-sm-2 control-label">第1级：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" ng-model="di1" id="di1id"
+                                            ng-options="y.name for (x, y) in chapter"
+                                            ng-change="change1()" ng-init="di1=''">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div id="chapter">
-                                <ul class="">
-                                    <li class=" list-group-item" ng-repeat="x in chapter " info="">
-                                        <a class=" list-group-item" ng-click="isCollapsed = !isCollapsed;save1(x)"
-                                           ng-bind="'1.'+x.name"></a>
-                                        <ul uib-collapse="isCollapsed" class="level2" ng-repeat="y in x.list">
-                                            <a class="list-group-item "
-                                               ng-click="isCollapsedchildren = !isCollapsedchildren;save2(y)"
-                                               style="background-color: #D3D3D3;margin:2px 0px 0px 8px;"
-                                               ng-bind="'  2.'+y.name"></a>
-                                            <ul uib-collapse="isCollapsedchildren" class="level3"
-                                                ng-repeat="z in y.sanweima ">
-
-                                                <a class="list-group-item "
-                                                   style="background-color: #d9ead3;margin:2px 0px 0px 16px;"
-                                                   ng-click="isCollapsedSun = !isCollapsedSun;save3(z)"
-                                                   ng-bind="'  3.'+z.name"></a>
-                                                <ul uib-collapse="isCollapsedSun"
-                                                    class="level4"
-                                                    ng-repeat="si in z.siweidaima ">
-                                                    <a class="list-group-item " style="background-color:
-                                                #FFEC8B;margin:2px 0px 0px 24px;"
-                                                       ng-click="save4(si)" ng-bind="' 4.'+si.name"></a>
-                                                </ul>
-
-                                            </ul>
-                                        </ul>
-                                    </li>
-                                </ul>
+                        </form>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="di2id" class="col-sm-2 control-label">第2级：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" ng-model="di2" id="di2id"
+                                            ng-options="y.name for (x, y) in d2"
+                                            ng-change="change2() " ng-init="di2=''">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                        </form>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="di3id" class="col-sm-2 control-label">第3级：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" ng-model="di3" id="di3id"
+                                            ng-options="y.name for (x, y) in d3"
+                                            ng-change="change3()" ng-init="di3=''">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="di4id" class="col-sm-2 control-label">第4级：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" ng-model="di4" id="di4id"
+                                            ng-options="y.name for (x, y) in d4"
+                                            ng-change="" ng-init="di4=''">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
 
                     </div>
                     <div class="modal-footer">
@@ -86,7 +99,6 @@
             </div>
             <!-- /.modal -->
         </div>
-
 
     </div>
 </div>
