@@ -28,7 +28,7 @@
         <!-- 模态框（Modal）用来显示数据 -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog" style="width: 50%">
+            <div class="modal-dialog" style="width: 70%">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -87,13 +87,25 @@
                                 </div>
                             </div>
                         </form>
-
+                        <div align="right">
+                            <button type="button" class="btn btn-success" ng-click="saveinfo()">确认标注
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="saveinfo()">确认选择
-                        </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                        </button>
+                    <br>
+                    <div >
+                        <div>
+                            <h1 class="text-center" style="font-size: 20px"  style="margin: 5px 0" ng-if="RecommendList.length!=0">标注推荐</h1>
+                            <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0" ng-if="RecommendList.length==0">无 标注推荐</h1>
+                            <ul class="list-group" ng-if="RecommendList.length!=0" >
+                                <li class="list-group-item" ng-repeat="x in RecommendList" ng-bind="x"></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span> &nbsp;</span>
+                        </div>
                     </div>
                 </div>
                 <!-- /.modal-content -->

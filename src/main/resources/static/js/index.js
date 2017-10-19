@@ -176,11 +176,16 @@ app.controller('menu', function ($scope, $http) {
             var layEvent = obj.event; //获得 lay-event 对应的值
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if (layEvent === 'tag') {
+                $scope.RecommendList=[]
                 $scope.di1 = ""
                 $scope.di2 = ""
                 $scope.di3 = ""
                 $scope.di4 = ""
                 dangqianhangdata = data
+                $http.get(appname + "/tagging/Recommend?name="+data.taggingDiseaseName).success(
+                    function (json) {
+                        $scope.RecommendList=json
+                    });
                 $('#myModal').modal('toggle');
 
             } else if (layEvent === 'del') {

@@ -1,5 +1,6 @@
 package com.xjtushilei.icd10taggingsystem.controller;
 
+import com.jayway.jsonpath.JsonPath;
 import com.xjtushilei.icd10taggingsystem.entity.Tagging;
 import com.xjtushilei.icd10taggingsystem.repository.TaggingRepository;
 import com.xjtushilei.icd10taggingsystem.utils.FileUtil;
@@ -13,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -81,5 +79,10 @@ public class TaggingController {
         return taggingRepository.save(list);
     }
 
+    @RequestMapping(value = "/Recommend", method = RequestMethod.GET)
+    public HashSet<String> Recommend(String name) {
+
+        return FileUtil.getRecommend(name);
+    }
 
 }
