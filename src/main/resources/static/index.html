@@ -32,26 +32,31 @@
                 <div class="modal-content">
 
                     <div class="modal-body" id="myModalContent">
-                        <div class="form-horizontal" >
+                        <div class="form-horizontal">
                             <div class="form-group">
                                 <label for="di1id" class="col-sm-2 control-label">第1级：</label>
                                 <div class="col-sm-8">
-                                    <select  class="form-control" ng-model="di1"
+                                    <select class="form-control" ng-model="di1"
                                             id="di1id"
-                                            ng-change="change1()" >
-                                        <option value="{{ y.id }}" ng-repeat="y in chapter">{{ y.name }}</option>
+                                            ng-change="change1()">
+                                        <option value="{{ y.id }}"
+                                                ng-repeat="y in chapter | orderBy:fisrtLetterOrder">
+                                            {{y.bianma+" "+y.name}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-horizontal" >
+                        <div class="form-horizontal">
                             <div class="form-group">
                                 <label for="di2id" class="col-sm-2 control-label">第2级：</label>
                                 <div class="col-sm-8">
                                     <select class="form-control" ng-model="di2" id="di2id"
-                                           ng-change="change2() " ng-init="di2=''">
+                                            ng-change="change2() " ng-init="di2=''">
                                         <option value="" selected="true"></option>
-                                        <option value="{{ y.bianma }}" ng-repeat="y in d2">{{ y.name }}</option>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d2 | orderBy:fisrtLetterOrder">
+                                            {{y.bianma+" "+y.name}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -63,7 +68,9 @@
                                     <select class="form-control" ng-model="di3" id="di3id"
                                             ng-change="change3()" ng-init="di3=''">
                                         <option value="" selected="true"></option>
-                                        <option value="{{ y.bianma }}" ng-repeat="y in d3">{{ y.name }}</option>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d3 | orderBy:fisrtLetterOrder">
+                                            {{y.bianma+" "+y.name}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -75,7 +82,10 @@
                                     <select class="form-control" ng-model="di4" id="di4id"
                                             ng-change="change4()" ng-init="di4=''">
                                         <option value="" selected="true"></option>
-                                        <option value="{{ y.bianma }}" ng-repeat="y in d4">{{ y.name }}</option>                                    </select>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d4 | orderBy:fisrtLetterOrder">
+                                            {{y.bianma+" "+y.name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -87,16 +97,29 @@
                         </div>
                     </div>
                     <br>
-                    <div >
+                    <div>
                         <div>
-                            <h1 class="text-center" style="font-size: 20px"  style="margin: 5px 0" ng-if="RecommendList.length!=0">标注推荐</h1>
-                            <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0" ng-if="RecommendList.length==0">无 标注推荐</h1>
-                            <ul class="list-group" ng-if="RecommendList.length!=0" >
-                                <li class="list-group-item" ng-repeat="x in RecommendList" ng-click="autoSelect(x)">
-                                    <span ng-if="x.hasOwnProperty('l1')">{{x.l1.name}}</span>
-                                    <span ng-if="x.hasOwnProperty('l2')">->{{x.l2.name}}</span>
-                                    <span ng-if="x.hasOwnProperty('l3')">->{{x.l3.name}}</span>
-                                    <span ng-if="x.hasOwnProperty('l4')">->{{x.l4.name}}</span>
+                            <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0"
+                                ng-if="RecommendList.length!=0">标注推荐</h1>
+                            <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0"
+                                ng-if="RecommendList.length==0">无 标注推荐</h1>
+                            <ul class="list-group" ng-if="RecommendList.length!=0">
+                                <li class="list-group-item"
+                                    ng-repeat="x in RecommendList | orderBy:tuijianfisrtLetterOrder"
+                                    ng-click="autoSelect(x)">
+                                    <span ng-if="x.hasOwnProperty('l1')">{{x.l1.bianma}} <b>{{x.l1.name}}</b></span>
+                                    <span ng-if="x.hasOwnProperty('l2')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:blue"></span>
+                                        {{x.l2.bianma}} <b>{{x.l2.name}}</b>
+                                    </span>
+                                    <span ng-if="x.hasOwnProperty('l3')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:#007DDB"></span>
+                                        {{x.l3.bianma}} <b>{{x.l3.name}}</b>
+                                    </span>
+                                    <span ng-if="x.hasOwnProperty('l4')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:cornflowerblue"></span>
+                                        {{x.l4.bianma}} <b>{{x.l4.name}}</b>
+                                    </span>
                                 </li>
                             </ul>
                         </div>

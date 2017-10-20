@@ -9,6 +9,13 @@ app.controller('menu', function ($scope, $http) {
     var tableIns
     var dangqianhangdata;
 
+    $scope.fisrtLetterOrder=function (obj) {
+        return obj.bianma.substr(0, 2)
+    }
+    $scope.tuijianfisrtLetterOrder=function (obj) {
+        return obj.l1.bianma.substr(0, 2)
+    }
+    
     $scope.di1 = ""
     $scope.di2 = ""
     $scope.di3 = ""
@@ -86,7 +93,6 @@ app.controller('menu', function ($scope, $http) {
                 return
             }
         });
-        $scope.di4json={}
     }
     $scope.autoSelect = function (x) {
 
