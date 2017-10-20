@@ -30,63 +30,55 @@
              aria-hidden="true">
             <div class="modal-dialog" style="width: 70%">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel" style="color:#c12e34; font-weight:blod; ">
-
-                        </h4>
-                    </div>
                     <div class="modal-body" id="myModalContent">
-                        <form class="form-horizontal" role="form">
+                        <div class="form-horizontal" >
                             <div class="form-group">
                                 <label for="di1id" class="col-sm-2 control-label">第1级：</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" ng-model="di1" id="di1id"
-                                            ng-options="y.name for (x, y) in chapter"
-                                            ng-change="change1()" ng-init="di1=''">
-                                        <option value=""></option>
+                                    <select  class="form-control" ng-model="di1"
+                                            id="di1id"
+                                            ng-change="change1()" >
+                                        <option value="{{ y.id }}" ng-repeat="y in chapter">{{ y.name }}</option>
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                        <form class="form-horizontal" role="form">
+                        </div>
+                        <div class="form-horizontal" >
                             <div class="form-group">
                                 <label for="di2id" class="col-sm-2 control-label">第2级：</label>
                                 <div class="col-sm-8">
                                     <select class="form-control" ng-model="di2" id="di2id"
-                                            ng-options="y.name for (x, y) in d2"
-                                            ng-change="change2() " ng-init="di2=''">
-                                        <option value=""></option>
+                                           ng-change="change2() " ng-init="di2=''">
+                                        <option value="" selected="true"></option>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d2">{{ y.name }}</option>
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                        <form class="form-horizontal" role="form">
+                        </div>
+                        <div class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label for="di3id" class="col-sm-2 control-label">第3级：</label>
                                 <div class="col-sm-8">
                                     <select class="form-control" ng-model="di3" id="di3id"
-                                            ng-options="y.name for (x, y) in d3"
                                             ng-change="change3()" ng-init="di3=''">
-                                        <option value=""></option>
+                                        <option value="" selected="true"></option>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d3">{{ y.name }}</option>
                                     </select>
                                 </div>
                             </div>
-                        </form>
-                        <form class="form-horizontal" role="form">
+                        </div>
+                        <div class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label for="di4id" class="col-sm-2 control-label">第4级：</label>
                                 <div class="col-sm-8">
                                     <select class="form-control" ng-model="di4" id="di4id"
-                                            ng-options="y.name for (x, y) in d4"
-                                            ng-change="" ng-init="di4=''">
-                                        <option value=""></option>
-                                    </select>
+                                            ng-change="change4()" ng-init="di4=''">
+                                        <option value="" selected="true"></option>
+                                        <option value="{{ y.bianma }}" ng-repeat="y in d4">{{ y.name }}</option>                                    </select>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                         <div align="right">
                             <button type="button" class="btn btn-success" ng-click="saveinfo()">确认标注
                             </button>
@@ -100,7 +92,12 @@
                             <h1 class="text-center" style="font-size: 20px"  style="margin: 5px 0" ng-if="RecommendList.length!=0">标注推荐</h1>
                             <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0" ng-if="RecommendList.length==0">无 标注推荐</h1>
                             <ul class="list-group" ng-if="RecommendList.length!=0" >
-                                <li class="list-group-item" ng-repeat="x in RecommendList" ng-bind="x"></li>
+                                <li class="list-group-item" ng-repeat="x in RecommendList" ng-click="autoSelect(x)">
+                                    <span ng-if="x.hasOwnProperty('l1')">{{x.l1.name}}</span>
+                                    <span ng-if="x.hasOwnProperty('l2')">->{{x.l2.name}}</span>
+                                    <span ng-if="x.hasOwnProperty('l3')">->{{x.l3.name}}</span>
+                                    <span ng-if="x.hasOwnProperty('l4')">->{{x.l4.name}}</span>
+                                </li>
                             </ul>
                         </div>
                         <div>
@@ -125,8 +122,8 @@
 <script src="plugs/angular/angular-sanitize.js"></script>
 <script src="plugs/angular/ui-bootstrap.js"></script>
 <script src="plugs/angular/ui-bootstrap-tpls.js"></script>
-
 <script src="plugs/layui/layui.all.js"></script>
+
 
 <script src="js/index.js"></script>
 </body>

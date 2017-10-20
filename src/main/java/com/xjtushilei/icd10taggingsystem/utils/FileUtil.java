@@ -20,9 +20,11 @@ public class FileUtil {
         getRecommend("支气管炎");
     }
 
-    public static ArrayList<String> getRecommend(String name) {
+    public static List<Map<String, Object>> getRecommend(String name) {
+        List<Map<String, Object>> myResult = new ArrayList<>();
+
         HashSet<String> result = new HashSet<>();
-        if (name==null || "".equals(name)){
+        if (name == null || "".equals(name)) {
             return new ArrayList<>();
         }
         String icd10Info = FileUtil.getIcd10Info();
@@ -33,26 +35,44 @@ public class FileUtil {
                     ("name")
                     .toString().contains(name)) {
                 result.add("1:<" + d11.get("name") + ">");
+                Map<String, Object> temp1 = new HashMap<>();
+                temp1.put("l1", d11);
+                myResult.add(temp1);
             }
             List<Map<String, Object>> d2 = JsonPath.read(d11.get("list"), "$.*");
             d2.forEach(d22 -> {
                 if (name.equals(d22.get("name").toString()) || (name.contains(d22.get("name").toString()) && d22.get("name").toString().equals("")) || d22.get("name")
                         .toString().contains(name)) {
                     result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + ">");
+                    Map<String, Object> temp2 = new HashMap<>();
+                    temp2.put("l1", d11);
+                    temp2.put("l2", d22);
+                    myResult.add(temp2);
                 }
                 List<Map<String, Object>> d3 = JsonPath.read(d22.get("sanweima"), "$.*");
                 d3.forEach(d33 -> {
-                    if (name.equals(d33.get("name").toString()) ||(name.contains(d33.get("name").toString()) && d33.get("name").toString().equals("")) || d33.get
+                    if (name.equals(d33.get("name").toString()) || (name.contains(d33.get("name").toString()) && d33.get("name").toString().equals("")) || d33.get
                             ("name")
                             .toString().contains(name)) {
                         result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + "> 3:<" + d33.get("name") + ">");
+                        Map<String, Object> temp = new HashMap<>();
+                        temp.put("l1", d11);
+                        temp.put("l2", d22);
+                        temp.put("l3", d33);
+                        myResult.add(temp);
                     }
                     List<Map<String, Object>> d4 = JsonPath.read(d33.get("siweidaima"), "$.*");
                     d4.forEach(d44 -> {
-                        if (name.equals(d44.get("name").toString()) || (name.contains(d44.get("name").toString()) && d44.get("name").toString().equals(""))||
+                        if (name.equals(d44.get("name").toString()) || (name.contains(d44.get("name").toString()) && d44.get("name").toString().equals("")) ||
                                 d44.get("name")
                                         .toString().contains(name)) {
                             result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + "> 3:<" + d33.get("name") + "> 4:<" + d44.get("name") + ">");
+                            Map<String, Object> temp = new HashMap<>();
+                            temp.put("l1", d11);
+                            temp.put("l2", d22);
+                            temp.put("l3", d33);
+                            temp.put("l4", d44);
+                            myResult.add(temp);
                         }
                     });
 
@@ -60,11 +80,8 @@ public class FileUtil {
             });
 
         });
-        ArrayList<String> sort = new ArrayList<>();
-        result.forEach(r->sort.add(r));
-        Collections.sort(sort);
-        Collections.reverse(sort);
-        return sort;
+
+        return myResult;
     }
 
     public static CSVParser getCsv() {

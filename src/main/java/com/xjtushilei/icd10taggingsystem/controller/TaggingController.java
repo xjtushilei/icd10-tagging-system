@@ -81,7 +81,7 @@ public class TaggingController {
     }
 
     @RequestMapping(value = "/Recommend", method = RequestMethod.GET)
-    public ArrayList<String> Recommend(String name) {
+    public List<Map<String, Object>> Recommend(String name) {
 
         return FileUtil.getRecommend(name);
     }

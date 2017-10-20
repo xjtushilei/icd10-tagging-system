@@ -2,22 +2,44 @@
  * Created by Guo Zhaotong on 2017/10/9.
  */
 var app = angular.module('myapp', ['ui.bootstrap']);
+
 app.controller('menu', function ($scope, $http) {
     var tableObj
     var table = layui.table;
     var tableIns
     var dangqianhangdata;
 
+    $scope.di1 = ""
+    $scope.di2 = ""
+    $scope.di3 = ""
+    $scope.di4 = ""
+
+    $scope.di1json = {}
+    $scope.di2json = {}
+    $scope.di3json = {}
+    $scope.di4json = {}
+
     $scope.change1 = function () {
         if ($scope.di1 != null) {
-            $scope.d2 = $scope.di1.list
+            $scope.chapter.forEach(function (value, index, array) {
+                if (value.id == $scope.di1) {
+                    $scope.di1json = value
+                }
+            });
+            $scope.d2 = $scope.di1json.list
             $scope.d3 = []
             $scope.d4 = []
+            $scope.di2json = {}
+            $scope.di3json = {}
+            $scope.di4json = {}
         }
         else {
             $scope.d2 = []
             $scope.d3 = []
             $scope.d4 = []
+            $scope.di2json = {}
+            $scope.di3json = {}
+            $scope.di4json = {}
         }
 
     }
@@ -25,18 +47,81 @@ app.controller('menu', function ($scope, $http) {
         if ($scope.di2 == null) {
             $scope.d4 = []
             $scope.d3 = []
+            $scope.di3json = {}
+            $scope.di4json = {}
         }
         else {
-            $scope.d3 = $scope.di2.sanweima
+            $scope.d2.forEach(function (value, index, array) {
+                if (value.bianma == $scope.di2) {
+                    $scope.di2json = value
+                }
+            });
+            $scope.d3 = $scope.di2json.sanweima
             $scope.d4 = []
+            $scope.di3json = {}
+            $scope.di4json = {}
         }
     }
     $scope.change3 = function () {
         if ($scope.di3 == null) {
             $scope.d4 = []
+            $scope.di4json = {}
         }
         else {
-            $scope.d4 = $scope.di3.siweidaima
+            $scope.d3.forEach(function (value, index, array) {
+                if (value.bianma == $scope.di3) {
+                    $scope.di3json = value
+                }
+            });
+            $scope.d4 = $scope.di3json.siweidaima
+            $scope.di4json = {}
+
+        }
+    }
+    $scope.change4 = function () {
+
+        $scope.d4.forEach(function (value, index, array) {
+            if (value.bianma == $scope.di4) {
+                $scope.di4json = value
+            }
+        });
+
+    }
+    $scope.autoSelect = function (x) {
+        if (x.hasOwnProperty('l1')) {
+            $scope.di1 = x.l1.id
+            $scope.chapter.forEach(function (value, index, array) {
+                if (value.id == $scope.di1) {
+                    $scope.di1json = value
+                }
+            });
+            $scope.d2 = $scope.di1json.list
+        }
+        if (x.hasOwnProperty('l2')) {
+            $scope.di2 = x.l2.bianma
+            $scope.d2.forEach(function (value, index, array) {
+                if (value.bianma == $scope.di2) {
+                    $scope.di2json = value
+                }
+            });
+            $scope.d3 = $scope.di2json.sanweima
+        }
+        if (x.hasOwnProperty('l3')) {
+            $scope.di3 = x.l3.bianma
+            $scope.d3.forEach(function (value, index, array) {
+                if (value.bianma == $scope.di3) {
+                    $scope.di3json = value
+                }
+            });
+            $scope.d4 = $scope.di3json.siweidaima
+        }
+        if (x.hasOwnProperty('l4')) {
+            $scope.di4 = x.l4.bianma
+            $scope.d4.forEach(function (value, index, array) {
+                if (value.bianma == $scope.di4) {
+                    $scope.di4json = value
+                }
+            });
         }
     }
     $scope.saveinfo = function () {
@@ -49,41 +134,52 @@ app.controller('menu', function ($scope, $http) {
         var cache3_bianma
         var cache4_name
         var cache4_bianma
-        console.log($scope.di4)
-        if ($scope.di1 != null && $scope.di1 != "") {
-            cache1_bianma = $scope.di1.bianma
-            cache1_name = $scope.di1.name
-            cache1_id = $scope.di1.id
+        // console.log($scope.di4)
+        if ($scope.di1json != null && $scope.di1json != {}) {
+            cache1_bianma = $scope.di1json.bianma
+            cache1_name = $scope.di1json.name
+            cache1_id = $scope.di1json.id
         }
         else {
             cache1_bianma = ""
             cache1_name = ""
             cache1_id = ""
         }
-        if ($scope.di2 != null && $scope.di2 != "") {
-            cache2_bianma = $scope.di2.bianma
-            cache2_name = $scope.di2.name
+        if ($scope.di2json != null && $scope.di2json !={}) {
+            cache2_bianma = $scope.di2json.bianma
+            cache2_name = $scope.di2json.name
         }
         else {
             cache2_bianma = ""
             cache2_name = ""
         }
-        if ($scope.di3 != null && $scope.di3 != "") {
-            cache3_bianma = $scope.di3.bianma
-            cache3_name = $scope.di3.name
+        if ($scope.di3json != null && $scope.di3json != {}) {
+            cache3_bianma = $scope.di3json.bianma
+            cache3_name = $scope.di3json.name
         }
         else {
             cache3_bianma = ""
             cache3_name = ""
         }
-        if ($scope.di4 != null && $scope.di4 != "") {
-            cache4_bianma = $scope.di4.bianma
-            cache4_name = $scope.di4.name
+        if ($scope.di4json != null && $scope.di4json != {}) {
+            cache4_bianma = $scope.di4json.bianma
+            cache4_name = $scope.di4json.name
         }
         else {
             cache4_bianma = ""
             cache4_name = ""
         }
+
+        if (typeof(cache1_id) == "undefined") cache1_id = ""
+        if (typeof(cache1_bianma) == "undefined") cache1_bianma = ""
+        if (typeof(cache1_name) == "undefined") cache1_name = ""
+        if (typeof(cache2_name) == "undefined") cache2_name = ""
+        if (typeof(cache2_bianma) == "undefined") cache2_bianma = ""
+        if (typeof(cache3_name) == "undefined") cache3_name = ""
+        if (typeof(cache3_bianma) == "undefined") cache3_bianma = ""
+        if (typeof(cache4_name) == "undefined") cache4_name = ""
+        if (typeof(cache4_bianma) == "undefined") cache4_bianma = ""
+
 
         $('#myModal').modal('toggle');
         $http({
@@ -115,7 +211,7 @@ app.controller('menu', function ($scope, $http) {
         }).success(
             function successCallback(data) {
                 // data = response.data
-                console.log(data)
+                // console.log(data)
                 tableObj.update({
                     firstName: data.firstName
                     , secondName: data.secondName
@@ -126,6 +222,10 @@ app.controller('menu', function ($scope, $http) {
                 $scope.di2 = ""
                 $scope.di3 = ""
                 $scope.di4 = ""
+                $scope.di1json = {}
+                $scope.di2json = {}
+                $scope.di3json = {}
+                $scope.di4json = {}
 
             });
     }
@@ -138,6 +238,8 @@ app.controller('menu', function ($scope, $http) {
         function (json) {
             $('#wait').hide()
             $('#main').show()
+
+
             $scope.chapter = json;
             chapterDOM.show()
             chapterDOM.slimscroll({
@@ -176,15 +278,15 @@ app.controller('menu', function ($scope, $http) {
             var layEvent = obj.event; //获得 lay-event 对应的值
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if (layEvent === 'tag') {
-                $scope.RecommendList=[]
+                $scope.RecommendList = []
                 $scope.di1 = ""
                 $scope.di2 = ""
                 $scope.di3 = ""
                 $scope.di4 = ""
                 dangqianhangdata = data
-                $http.get(appname + "/tagging/Recommend?name="+data.taggingDiseaseName).success(
+                $http.get(appname + "/tagging/Recommend?name=" + data.taggingDiseaseName).success(
                     function (json) {
-                        $scope.RecommendList=json
+                        $scope.RecommendList = json
                     });
                 $('#myModal').modal('toggle');
 
