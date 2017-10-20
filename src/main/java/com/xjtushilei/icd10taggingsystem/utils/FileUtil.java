@@ -7,10 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author shilei
@@ -20,13 +17,13 @@ public class FileUtil {
 
     public static void main(String file_path[]) {
 
-
+        getRecommend("支气管炎");
     }
 
-    public static HashSet<String> getRecommend(String name) {
+    public static ArrayList<String> getRecommend(String name) {
         HashSet<String> result = new HashSet<>();
         if (name==null || "".equals(name)){
-            return result;
+            return new ArrayList<>();
         }
         String icd10Info = FileUtil.getIcd10Info();
         List<Map<String, Object>> d1 = JsonPath.read(icd10Info, "$.*");
@@ -63,7 +60,11 @@ public class FileUtil {
             });
 
         });
-        return result;
+        ArrayList<String> sort = new ArrayList<>();
+        result.forEach(r->sort.add(r));
+        Collections.sort(sort);
+        Collections.reverse(sort);
+        return sort;
     }
 
     public static CSVParser getCsv() {
