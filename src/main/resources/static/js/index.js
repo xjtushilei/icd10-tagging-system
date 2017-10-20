@@ -83,11 +83,13 @@ app.controller('menu', function ($scope, $http) {
         $scope.d4.forEach(function (value, index, array) {
             if (value.bianma == $scope.di4) {
                 $scope.di4json = value
+                return
             }
         });
-
+        $scope.di4json={}
     }
     $scope.autoSelect = function (x) {
+
         if (x.hasOwnProperty('l1')) {
             $scope.di1 = x.l1.id
             $scope.chapter.forEach(function (value, index, array) {
@@ -106,6 +108,14 @@ app.controller('menu', function ($scope, $http) {
             });
             $scope.d3 = $scope.di2json.sanweima
         }
+        else{
+            $scope.di2 = ""
+            $scope.di2json = {}
+            $scope.di3 = ""
+            $scope.di3json = {}
+            $scope.di4 = ""
+            $scope.di4json = {}
+        }
         if (x.hasOwnProperty('l3')) {
             $scope.di3 = x.l3.bianma
             $scope.d3.forEach(function (value, index, array) {
@@ -114,6 +124,11 @@ app.controller('menu', function ($scope, $http) {
                 }
             });
             $scope.d4 = $scope.di3json.siweidaima
+        } else{
+            $scope.di3 = ""
+            $scope.di3json = {}
+            $scope.di4 = ""
+            $scope.di4json = {}
         }
         if (x.hasOwnProperty('l4')) {
             $scope.di4 = x.l4.bianma
@@ -122,6 +137,10 @@ app.controller('menu', function ($scope, $http) {
                     $scope.di4json = value
                 }
             });
+        }
+        else{
+            $scope.di4 = ""
+            $scope.di4json = {}
         }
     }
     $scope.saveinfo = function () {
