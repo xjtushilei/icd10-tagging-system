@@ -31,36 +31,13 @@ public class FileUtil {
         List<Map<String, Object>> d1 = JsonPath.read(icd10Info, "$.*");
 
         d1.forEach(d11 -> {
-            if (name.equals(d11.get("name").toString()) || (name.contains(d11.get("name").toString()) && d11.get("name").toString().equals("")) || d11.get
-                    ("name")
-                    .toString().contains(name)) {
-                result.add("1:<" + d11.get("name") + ">");
-                Map<String, Object> temp1 = new HashMap<>();
-                temp1.put("l1", d11);
-                myResult.add(temp1);
-            }
+            final boolean[] flag2 = {false};
             List<Map<String, Object>> d2 = JsonPath.read(d11.get("list"), "$.*");
             d2.forEach(d22 -> {
-                if (name.equals(d22.get("name").toString()) || (name.contains(d22.get("name").toString()) && d22.get("name").toString().equals("")) || d22.get("name")
-                        .toString().contains(name)) {
-                    result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + ">");
-                    Map<String, Object> temp2 = new HashMap<>();
-                    temp2.put("l1", d11);
-                    temp2.put("l2", d22);
-                    myResult.add(temp2);
-                }
+                final boolean[] flag3 = {false};
                 List<Map<String, Object>> d3 = JsonPath.read(d22.get("sanweima"), "$.*");
                 d3.forEach(d33 -> {
-                    if (name.equals(d33.get("name").toString()) || (name.contains(d33.get("name").toString()) && d33.get("name").toString().equals("")) || d33.get
-                            ("name")
-                            .toString().contains(name)) {
-                        result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + "> 3:<" + d33.get("name") + ">");
-                        Map<String, Object> temp = new HashMap<>();
-                        temp.put("l1", d11);
-                        temp.put("l2", d22);
-                        temp.put("l3", d33);
-                        myResult.add(temp);
-                    }
+                    final boolean[] flag4 = {false};
                     List<Map<String, Object>> d4 = JsonPath.read(d33.get("siweidaima"), "$.*");
                     d4.forEach(d44 -> {
                         if (name.equals(d44.get("name").toString()) || (name.contains(d44.get("name").toString()) && d44.get("name").toString().equals("")) ||
@@ -72,13 +49,46 @@ public class FileUtil {
                             temp.put("l2", d22);
                             temp.put("l3", d33);
                             temp.put("l4", d44);
+                            flag4[0] = true;
+                            flag3[0] = true;
+                            flag2[0] = true;
                             myResult.add(temp);
                         }
                     });
-
+                    if ((name.equals(d33.get("name").toString()) || (name.contains(d33.get("name").toString()) &&
+                            d33.get("name").toString().equals("")) || d33.get
+                            ("name")
+                            .toString().contains(name)) && !flag4[0]) {
+                        result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + "> 3:<" + d33.get("name") + ">");
+                        Map<String, Object> temp = new HashMap<>();
+                        temp.put("l1", d11);
+                        temp.put("l2", d22);
+                        temp.put("l3", d33);
+                        flag3[0] = true;
+                        flag2[0] = true;
+                        myResult.add(temp);
+                    }
                 });
+                if ((name.equals(d22.get("name").toString()) || (name.contains(d22.get("name").toString()) && d22.get
+                        ("name").toString().equals("")) || d22.get("name")
+                        .toString().contains(name)) && !flag3[0]) {
+                    result.add("1:<" + d11.get("name") + "> 2:<" + d22.get("name") + ">");
+                    Map<String, Object> temp2 = new HashMap<>();
+                    temp2.put("l1", d11);
+                    temp2.put("l2", d22);
+                    myResult.add(temp2);
+                    flag2[0] = true;
+                }
             });
-
+            if ((name.equals(d11.get("name").toString()) || (name.contains(d11.get("name").toString()) && d11.get
+                    ("name").toString().equals("")) || d11.get
+                    ("name")
+                    .toString().contains(name)) && !flag2[0]) {
+                result.add("1:<" + d11.get("name") + ">");
+                Map<String, Object> temp1 = new HashMap<>();
+                temp1.put("l1", d11);
+                myResult.add(temp1);
+            }
         });
 
         return myResult;
