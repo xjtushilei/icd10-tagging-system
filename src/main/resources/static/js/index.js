@@ -8,6 +8,7 @@ app.controller('menu', function ($scope, $http) {
     var table = layui.table;
     var tableIns
     var dangqianhangdata;
+    $scope.dangqianinfo=""
 
     $scope.fisrtLetterOrder=function (obj) {
         return obj.bianma.substr(0, 2)
@@ -311,6 +312,7 @@ app.controller('menu', function ($scope, $http) {
             var layEvent = obj.event; //获得 lay-event 对应的值
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if (layEvent === 'tag') {
+                $scope.dangqianinfo=data.taggingDiseaseName
                 $scope.containsResult = []
                 $scope.similarityList = []
                 $scope.di1 = ""
