@@ -13,7 +13,15 @@ app.controller('menu', function ($scope, $http) {
         return obj.bianma.substr(0, 2)
     }
     $scope.tuijianfisrtLetterOrder=function (obj) {
-        return obj.l1.bianma.substr(0, 2)
+        // console.log(obj)
+        if( obj.count!=null){
+
+            return -obj.count
+        }
+        else
+        {
+            return 0
+        }
     }
     
     $scope.di1 = ""
@@ -303,7 +311,8 @@ app.controller('menu', function ($scope, $http) {
             var layEvent = obj.event; //获得 lay-event 对应的值
             var tr = obj.tr; //获得当前行 tr 的DOM对象
             if (layEvent === 'tag') {
-                $scope.RecommendList = []
+                $scope.containsResult = []
+                $scope.similarityList = []
                 $scope.di1 = ""
                 $scope.di2 = ""
                 $scope.di3 = ""
@@ -311,7 +320,8 @@ app.controller('menu', function ($scope, $http) {
                 dangqianhangdata = data
                 $http.get(appname + "/tagging/Recommend?name=" + data.taggingDiseaseName).success(
                     function (json) {
-                        $scope.RecommendList = json
+                        $scope.containsResult = json.containsResult
+                        $scope.similarityList = json.similarityResult
                     });
                 $('#myModal').modal('toggle');
 

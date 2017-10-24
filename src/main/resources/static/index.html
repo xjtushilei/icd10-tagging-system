@@ -102,13 +102,35 @@
                     <div>
                         <div>
                             <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0"
-                                ng-if="RecommendList.length!=0">标注推荐</h1>
+                                ng-if="containsResult.length!=0 ">标注推荐</h1>
                             <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0"
-                                ng-if="RecommendList.length==0">无 标注推荐</h1>
-                            <ul class="list-group" ng-if="RecommendList.length!=0">
+                                ng-if="containsResult.length==0 && similarityList.length==0 ">无推荐</h1>
+                            <ul class="list-group" ng-if="containsResult.length!=0">
                                 <li class="list-group-item"
-                                    ng-repeat="x in RecommendList | orderBy:tuijianfisrtLetterOrder"
+                                    ng-repeat="x in containsResult | orderBy:tuijianfisrtLetterOrder"
                                     ng-click="autoSelect(x)">
+                                    <span ng-if="x.hasOwnProperty('l1')">{{x.l1.bianma}} <b>{{x.l1.name}}</b></span>
+                                    <span ng-if="x.hasOwnProperty('l2')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:blue"></span>
+                                        {{x.l2.bianma}} <b>{{x.l2.name}}</b>
+                                    </span>
+                                    <span ng-if="x.hasOwnProperty('l3')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:#007DDB"></span>
+                                        {{x.l3.bianma}} <b>{{x.l3.name}}</b>
+                                    </span>
+                                    <span ng-if="x.hasOwnProperty('l4')">
+                                        <span class="glyphicon glyphicon-chevron-right"  style="color:cornflowerblue"></span>
+                                        {{x.l4.bianma}} <b>{{x.l4.name}}</b>
+                                    </span>
+                                </li>
+                            </ul>
+                            <h1 class="text-center" style="font-size: 20px" style="margin: 5px 0"
+                                ng-if="similarityList.length!=0">相似性推荐</h1>
+                            <ul class="list-group" ng-if="similarityList.length!=0">
+                                <li class="list-group-item" ng-repeat="x in similarityList "
+                                    ng-click="autoSelect(x)">
+                                    <!--ng-repeat="x in similarityList | orderBy:tuijianfisrtLetterOrder"-->
+
                                     <span ng-if="x.hasOwnProperty('l1')">{{x.l1.bianma}} <b>{{x.l1.name}}</b></span>
                                     <span ng-if="x.hasOwnProperty('l2')">
                                         <span class="glyphicon glyphicon-chevron-right"  style="color:blue"></span>
