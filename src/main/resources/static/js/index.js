@@ -145,18 +145,18 @@ app.controller('menu', function ($scope, $http) {
             $scope.di4 = ""
             $scope.di4json = {}
         }
-        if (x.hasOwnProperty('l4')) {
-            $scope.di4 = x.l4.bianma
-            $scope.d4.forEach(function (value, index, array) {
-                if (value.bianma == $scope.di4) {
-                    $scope.di4json = value
-                }
-            });
-        }
-        else{
-            $scope.di4 = ""
-            $scope.di4json = {}
-        }
+        // if (x.hasOwnProperty('l4')) {
+        //     $scope.di4 = x.l4.bianma
+        //     $scope.d4.forEach(function (value, index, array) {
+        //         if (value.bianma == $scope.di4) {
+        //             $scope.di4json = value
+        //         }
+        //     });
+        // }
+        // else{
+        //     $scope.di4 = ""
+        //     $scope.di4json = {}
+        // }
     }
     $scope.saveinfo = function () {
         var cache1_id
